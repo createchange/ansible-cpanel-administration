@@ -1,0 +1,21 @@
+---
+- hosts: all
+  gather_facts: no
+  become: yes
+  tasks:
+ 
+    - name: Copy script (if doesn't exist or changed)
+      copy:
+            src: cpanel_automated_maintenance.py
+            dest: /home/jonathanweaver/scripts/cpanel_automated_maintenance.py
+            owner: jonathanweaver
+            group: jonathanweaver
+            mode: 0755
+
+    - name: Run weekly maintenance script
+      shell: /home/jonathanweaver/scripts/cpanel_automated_maintenance.py
+      register: script_output
+
+    - name: Check output of script
+      debug:
+            msg: "{{ script_output.stdout_lines }}"

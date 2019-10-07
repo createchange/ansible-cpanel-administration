@@ -1,0 +1,10 @@
+---
+- hosts: all
+  gather_facts: yes
+  become: yes
+  tasks:
+  - name: fetch userdomains contents
+    fetch:
+      src: /etc/userdomains
+      dest: ../output/userdomains/userdomains-{{ inventory_hostname }}
+      flat: yes

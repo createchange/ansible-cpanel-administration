@@ -1,0 +1,21 @@
+---
+- hosts: all
+  gather_facts: no
+  become: yes
+  tasks:
+
+    - name: Copy script (if doesn't exist or changed)
+      copy:
+            src: md5sum-check.py
+            dest: /home/jonathanweaver/scripts/md5sum-check.py
+            owner: jonathanweaver
+            group: jonathanweaver
+            mode: 0755
+
+    - name: Run md5-check script
+      shell: /home/jonathanweaver/scripts/md5sum-check.py
+      register: script_output
+
+    - name: Check output of script 
+      debug:
+            msg: "{{ script_output.stdout_lines }}"

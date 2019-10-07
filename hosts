@@ -1,0 +1,7 @@
+[cpanel]
+cpanel-6.host.chi1.int-i.net
+cpanel-7.host.chi1.int-i.net
+cpanel-8.host.chi1.int-i.net
+
+[cpanel:vars]
+ansible_user=jonathanweaver

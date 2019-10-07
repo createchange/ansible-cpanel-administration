@@ -1,0 +1,25 @@
+---
+- hosts: all
+  gather_facts: no
+  become: yes
+  tasks:
+ 
+    - name: Copy script (if doesn't exist or changed)
+      copy:
+            src: rkhunter-verification.py
+            dest: /home/jonathanweaver/scripts/rkhunter-verification.py
+            owner: jonathanweaver
+            group: jonathanweaver
+            mode: 0755
+
+    - name: Run rkhunter script
+      shell: /home/jonathanweaver/scripts/rkhunter-verification.py
+      register: script_output
+
+    - name: Update rkhunter
+      shell: rkhunter --propupd
+
+    - name: Check output of script
+      debug:
+            msg: "{{ script_output.stdout_lines }}"
+
